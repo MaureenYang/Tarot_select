@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>內在片場神諭卡</title>
-<link rel="stylesheet" href="innerstudio-style.css" />
+<title>未完的童年碎片</title>
+<link rel="stylesheet" href="innerchild-style.css" />
 </head>
 <body>
   <div class="app">
@@ -12,27 +12,28 @@
       <a class="nav-link" href="index.html">🔮 塔羅牌抽牌</a>
       <a class="nav-link" href="angel.html">🕊️ 天使指引卡</a>
       <a class="nav-link" href="pantheon.html">⚡ 萬神歸途指引卡</a>
-      <a class="nav-link" href="innerchild.html">🧸 未完的童年碎片</a>
+      <a class="nav-link" href="innerstudio.html">🎬 內在片場神諭卡</a>
     </nav>
 
     <header class="header">
-      <h1>🎬 內在片場神諭卡</h1>
-      <p class="subtitle">44 個內在角色原型，抽一張看清此刻卡住你的戲碼，或抽三張看見更完整的劇情脈絡（沒有正逆位）</p>
+      <h1>🧸 未完的童年碎片</h1>
+      <p class="tagline">每一件遺物，都是等待被溫柔認領的內在小孩。</p>
+      <p class="subtitle">44 個深層內在小孩創傷印記，抽一張看見此刻隱隱作痛的舊傷，或抽三張看見更完整的療癒脈絡（沒有正逆位）</p>
       <p class="visit-counter" id="visitCounter" hidden>已被瀏覽 <span id="visitCount">–</span> 次</p>
     </header>
 
     <section class="controls" id="controls">
       <div class="draw-choice">
         <button type="button" class="draw-btn active" data-count="1">
-          <span class="count">1</span>單張定格
+          <span class="count">1</span>單一碎片
         </button>
         <button type="button" class="draw-btn" data-count="3">
-          <span class="count">3</span>三張分鏡
+          <span class="count">3</span>三件遺物
         </button>
       </div>
 
       <div class="actions">
-        <button type="button" class="btn-primary" id="shuffleBtn">🎬 開拍抽牌</button>
+        <button type="button" class="btn-primary" id="shuffleBtn">🧸 輕輕翻找</button>
         <button type="button" class="btn-secondary" id="revealAllBtn" disabled>翻開全部</button>
         <button type="button" class="btn-secondary" id="resetBtn" disabled>重新開始</button>
       </div>
@@ -51,14 +52,14 @@
       <div class="card-grid" id="spreadGrid"></div>
     </section>
 
-    <footer class="note">點一次翻牌，再點一次查看根本原因與破局台詞</footer>
+    <footer class="note">點一次翻牌，再點一次看見創傷本質與溫暖療癒句</footer>
   </div>
 
   <div class="overlay" id="detailOverlay" hidden>
     <div class="detail-card" id="cardDetail"></div>
   </div>
 
-  <script src="innerstudio-cards.js"></script>
-  <script src="innerstudio-app.js"></script>
+  <script src="innerchild-cards.js"></script>
+  <script src="innerchild-app.js"></script>
 </body>
 </html>
