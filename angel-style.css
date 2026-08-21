@@ -67,6 +67,8 @@ body {
 
 .subtitle { color: var(--muted); font-size: 0.95rem; }
 
+.visit-counter { color: var(--muted); font-size: 0.78rem; margin-top: 8px; }
+
 .controls {
   background: linear-gradient(180deg, var(--sky-panel), var(--sky-panel-2));
   border: 1px solid var(--hairline);

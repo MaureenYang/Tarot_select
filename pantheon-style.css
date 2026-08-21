@@ -72,7 +72,9 @@ body {
   margin: 0 0 10px;
 }
 
-.subtitle { color: var(--muted); font-size: 0.95rem; margin-bottom: 28px; }
+.subtitle { color: var(--muted); font-size: 0.95rem; margin-bottom: 20px; }
+
+.visit-counter { color: var(--muted); font-size: 0.78rem; }
 
 .controls {
   background: linear-gradient(180deg, var(--panel), var(--panel-2));

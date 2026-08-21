@@ -140,3 +140,17 @@
     resetBtn.disabled = true;
   });
 })();
+
+(function () {
+  const el = document.getElementById("visitCounter");
+  const countEl = document.getElementById("visitCount");
+  if (!el || !countEl) return;
+
+  fetch("https://api.countapi.xyz/hit/maureenyang-tarot-select/innerstudio")
+    .then((res) => res.json())
+    .then((data) => {
+      countEl.textContent = data.value.toLocaleString("zh-Hant");
+      el.hidden = false;
+    })
+    .catch(() => {});
+})();
