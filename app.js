@@ -200,25 +200,16 @@
     const cross = document.createElement("div");
     cross.className = "celtic-cross";
 
-    const crossCenter = document.createElement("div");
-    crossCenter.className = "cross-center";
-    crossCenter.appendChild(buildCardElement(spreadCards[0], positions[0], "pos-present"));
-    crossCenter.appendChild(buildCardElement(spreadCards[1], positions[1], "pos-challenge"));
+    const posClasses = [
+      "pos-present", "pos-challenge", "pos-found", "pos-past",
+      "pos-crown", "pos-future", "pos-s7", "pos-s8", "pos-s9", "pos-s10",
+    ];
 
-    cross.appendChild(buildCardElement(spreadCards[2], positions[2], "pos-found"));
-    cross.appendChild(buildCardElement(spreadCards[3], positions[3], "pos-past"));
-    cross.appendChild(buildCardElement(spreadCards[4], positions[4], "pos-crown"));
-    cross.appendChild(buildCardElement(spreadCards[5], positions[5], "pos-future"));
-    cross.appendChild(crossCenter);
-
-    const staff = document.createElement("div");
-    staff.className = "celtic-staff";
-    [9, 8, 7, 6].forEach((idx) => {
-      staff.appendChild(buildCardElement(spreadCards[idx], positions[idx]));
+    spreadCards.forEach((entry, i) => {
+      cross.appendChild(buildCardElement(entry, positions[i], posClasses[i]));
     });
 
     spreadGrid.appendChild(cross);
-    spreadGrid.appendChild(staff);
   }
 
   function renderReading(spread, readingData) {

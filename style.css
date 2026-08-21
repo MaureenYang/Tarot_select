@@ -330,94 +330,73 @@ body {
 /* Celtic Cross spread layout */
 .celtic-layout {
   display: flex;
-  gap: 44px;
-  align-items: center;
   justify-content: center;
-  flex-wrap: wrap;
 }
 
 .celtic-cross {
   display: grid;
-  grid-template-columns: 130px 130px 130px;
-  grid-template-rows: repeat(3, 200px);
+  grid-template-columns: 130px 130px 130px 40px 130px;
+  grid-template-rows: repeat(4, 200px);
   grid-template-areas:
-    ".    crown  ."
-    "past center future"
-    ".    found  .";
+    ".    crown   .      .    s10"
+    "past center future  .    s9"
+    ".    found   .      .    s8"
+    ".    .       .      .    s7";
   gap: 14px;
   place-items: center;
 }
 
-.celtic-cross .pos-crown { grid-area: crown; }
-.celtic-cross .pos-past { grid-area: past; }
-.celtic-cross .pos-future { grid-area: future; }
-.celtic-cross .pos-found { grid-area: found; }
+.pos-crown { grid-area: crown; }
+.pos-past { grid-area: past; }
+.pos-future { grid-area: future; }
+.pos-found { grid-area: found; }
+.pos-present { grid-area: center; }
+.pos-challenge { grid-area: center; }
+.pos-s7 { grid-area: s7; }
+.pos-s8 { grid-area: s8; }
+.pos-s9 { grid-area: s9; }
+.pos-s10 { grid-area: s10; }
 
-.cross-center {
-  grid-area: center;
+.pos-challenge {
   position: relative;
-  width: 120px;
-}
-
-.cross-center .pos-challenge {
-  position: absolute;
-  top: 26px;
-  left: 0;
-  width: 120px;
   z-index: 2;
+  transform: translateY(13px);
 }
 
-.cross-center .pos-challenge .card-scene {
+.pos-challenge .card-scene {
   transform: rotate(90deg);
 }
 
-.cross-center .pos-challenge .card-position {
-  position: absolute;
-  left: -92px;
-  top: 78px;
-  width: 84px;
-  text-align: right;
-  margin: 0;
-}
-
-.celtic-staff {
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
+.pos-challenge .card-position {
+  display: none;
 }
 
 @media (max-width: 720px) {
-  .celtic-layout {
-    flex-direction: column;
-    gap: 24px;
-  }
   .celtic-cross {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(3, 1fr);
     grid-template-rows: none;
-    grid-template-areas:
-      "crown"
-      "past"
-      "center"
-      "future"
-      "found";
+    grid-template-areas: none;
+    width: 100%;
     justify-items: center;
-    gap: 20px;
+    gap: 22px 14px;
   }
-  .cross-center {
-    width: auto;
+  .celtic-cross > .tarot-card {
+    grid-area: auto;
   }
-  .cross-center .pos-challenge {
+  .pos-challenge {
     position: static;
-    margin-top: 10px;
+    transform: none;
+    z-index: auto;
   }
-  .cross-center .pos-challenge .card-scene {
+  .pos-challenge .card-scene {
     transform: none;
   }
-  .cross-center .pos-challenge .card-position {
+  .pos-challenge .card-position {
+    display: block;
     position: static;
     width: auto;
     text-align: center;
-    margin: 0 0 8px;
+    margin: 0 0 6px;
   }
 }
 
