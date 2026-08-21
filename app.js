@@ -14,9 +14,9 @@
     },
     choice: {
       label: "二擇一",
-      count: 2,
-      layout: "row",
-      positions: ["選項 A", "選項 B"],
+      count: 5,
+      layout: "choice",
+      positions: ["現況", "選項 A · 優勢", "選項 A · 挑戰", "選項 B · 優勢", "選項 B · 挑戰"],
     },
     celtic: {
       label: "凱爾特十字",
@@ -167,6 +167,33 @@
     });
   }
 
+  function renderChoiceLayout(spreadCards, positions) {
+    spreadGrid.className = "choice-layout";
+
+    const options = document.createElement("div");
+    options.className = "choice-options";
+
+    const clusterA = document.createElement("div");
+    clusterA.className = "choice-cluster";
+    clusterA.appendChild(buildCardElement(spreadCards[1], positions[1]));
+    clusterA.appendChild(buildCardElement(spreadCards[2], positions[2]));
+
+    const clusterB = document.createElement("div");
+    clusterB.className = "choice-cluster";
+    clusterB.appendChild(buildCardElement(spreadCards[3], positions[3]));
+    clusterB.appendChild(buildCardElement(spreadCards[4], positions[4]));
+
+    options.appendChild(clusterA);
+    options.appendChild(clusterB);
+
+    const current = document.createElement("div");
+    current.className = "choice-current";
+    current.appendChild(buildCardElement(spreadCards[0], positions[0]));
+
+    spreadGrid.appendChild(options);
+    spreadGrid.appendChild(current);
+  }
+
   function renderCelticLayout(spreadCards, positions) {
     spreadGrid.className = "celtic-layout";
 
@@ -200,6 +227,8 @@
 
     if (spread.layout === "celtic") {
       renderCelticLayout(readingData.spreadCards, spread.positions);
+    } else if (spread.layout === "choice") {
+      renderChoiceLayout(readingData.spreadCards, spread.positions);
     } else {
       renderRowLayout(readingData.spreadCards, spread.positions);
     }
