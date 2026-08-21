@@ -1,0 +1,451 @@
+:root {
+  --bg-deep: #120c1e;
+  --bg-mid: #1c1330;
+  --accent: #c9a962;
+  --accent-soft: #e6cf9c;
+  --purple: #6b3fa0;
+  --purple-light: #9b6fd6;
+  --text-light: #f2ecf8;
+  --text-muted: #b6a9cc;
+  --card-back-a: #2c1b4d;
+  --card-back-b: #4a2b7a;
+  --reversed-glow: #d16b6b;
+  --upright-glow: #7fd6a0;
+  --radius: 14px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "PingFang TC", "Microsoft JhengHei", "Noto Sans TC", sans-serif;
+  background: radial-gradient(circle at 20% 10%, #2a1c47 0%, var(--bg-deep) 45%, #0a0714 100%);
+  color: var(--text-light);
+  padding: 32px 16px 80px;
+}
+
+.app {
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.header h1 {
+  font-size: 2rem;
+  margin-bottom: 6px;
+  letter-spacing: 0.02em;
+  background: linear-gradient(90deg, var(--accent-soft), var(--purple-light));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.subtitle {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+.controls {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(201, 169, 98, 0.25);
+  border-radius: var(--radius);
+  padding: 24px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  align-items: flex-end;
+  backdrop-filter: blur(6px);
+}
+
+.control-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.control-group label {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.count-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+#cardCount {
+  width: 64px;
+  text-align: center;
+  font-size: 1.1rem;
+  padding: 8px 4px;
+  border-radius: 8px;
+  border: 1px solid rgba(201, 169, 98, 0.4);
+  background: rgba(0, 0, 0, 0.25);
+  color: var(--text-light);
+}
+
+.step-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  border: 1px solid rgba(201, 169, 98, 0.4);
+  background: rgba(0, 0, 0, 0.25);
+  color: var(--accent-soft);
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.step-btn:hover {
+  background: rgba(201, 169, 98, 0.2);
+}
+
+.presets {
+  flex: 1;
+  min-width: 260px;
+}
+
+.preset-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.preset-btn {
+  padding: 7px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(155, 111, 214, 0.5);
+  background: rgba(107, 63, 160, 0.2);
+  color: var(--text-light);
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+}
+
+.preset-btn:hover {
+  background: rgba(155, 111, 214, 0.35);
+  transform: translateY(-1px);
+}
+
+.toggle-group {
+  flex-direction: row;
+  gap: 20px;
+  align-items: center;
+}
+
+.switch-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.88rem;
+  color: var(--text-light);
+  cursor: pointer;
+}
+
+.switch-label input {
+  accent-color: var(--purple-light);
+  width: 16px;
+  height: 16px;
+}
+
+.actions {
+  flex-direction: row;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.primary-btn {
+  padding: 12px 22px;
+  border-radius: 10px;
+  border: none;
+  background: linear-gradient(120deg, var(--purple), var(--purple-light));
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(107, 63, 160, 0.4);
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.primary-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(107, 63, 160, 0.55);
+}
+
+.primary-btn:active {
+  transform: translateY(0);
+}
+
+.secondary-btn {
+  padding: 12px 18px;
+  border-radius: 10px;
+  border: 1px solid rgba(201, 169, 98, 0.4);
+  background: transparent;
+  color: var(--accent-soft);
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.secondary-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.secondary-btn:not(:disabled):hover {
+  background: rgba(201, 169, 98, 0.15);
+}
+
+.deck-status {
+  text-align: center;
+  margin: 36px 0;
+  color: var(--text-muted);
+}
+
+.shuffle-anim {
+  position: relative;
+  width: 100px;
+  height: 140px;
+  margin: 0 auto 12px;
+}
+
+.shuffle-card {
+  position: absolute;
+  width: 70px;
+  height: 100px;
+  left: 15px;
+  top: 20px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, var(--card-back-a), var(--card-back-b));
+  border: 1px solid rgba(201, 169, 98, 0.5);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  animation: shuffleMove 0.9s ease-in-out infinite;
+}
+
+.shuffle-card.c1 { animation-delay: 0s; }
+.shuffle-card.c2 { animation-delay: 0.15s; }
+.shuffle-card.c3 { animation-delay: 0.3s; }
+
+@keyframes shuffleMove {
+  0% { transform: translateX(-24px) rotate(-8deg); }
+  50% { transform: translateX(24px) rotate(8deg); }
+  100% { transform: translateX(-24px) rotate(-8deg); }
+}
+
+.reading {
+  margin-top: 20px;
+}
+
+.reading-block {
+  margin-bottom: 32px;
+}
+
+.block-title {
+  font-size: 1.15rem;
+  color: var(--accent-soft);
+  margin-bottom: 14px;
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.hint {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  font-weight: 400;
+}
+
+.card-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  justify-content: flex-start;
+}
+
+.base-grid {
+  justify-content: center;
+}
+
+.tarot-card {
+  width: 120px;
+  cursor: pointer;
+  perspective: 1000px;
+}
+
+.card-position {
+  text-align: center;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+
+.card-inner {
+  position: relative;
+  width: 100%;
+  height: 172px;
+  transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
+  transform-style: preserve-3d;
+}
+
+.tarot-card.revealed .card-inner {
+  transform: rotateY(180deg);
+}
+
+.tarot-card.reversed.revealed .card-inner {
+  transform: rotateY(180deg) rotate(180deg);
+}
+
+.card-face {
+  position: absolute;
+  inset: 0;
+  border-radius: 10px;
+  backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 10px 6px;
+}
+
+.card-back {
+  background:
+    repeating-linear-gradient(45deg, rgba(201, 169, 98, 0.15) 0 6px, transparent 6px 12px),
+    linear-gradient(135deg, var(--card-back-a), var(--card-back-b));
+  border: 2px solid rgba(201, 169, 98, 0.5);
+}
+
+.card-back::after {
+  content: "✦";
+  font-size: 1.8rem;
+  color: rgba(230, 207, 156, 0.7);
+}
+
+.card-front {
+  background: linear-gradient(160deg, #241735, #150e24);
+  border: 2px solid var(--accent);
+  transform: rotateY(180deg);
+}
+
+.card-front .card-name {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--accent-soft);
+  line-height: 1.3;
+}
+
+.card-front .card-en {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+  font-style: italic;
+}
+
+.card-front .orientation-badge {
+  margin-top: 8px;
+  font-size: 0.72rem;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-weight: 600;
+}
+
+.orientation-badge.upright {
+  background: rgba(127, 214, 160, 0.18);
+  color: var(--upright-glow);
+  border: 1px solid rgba(127, 214, 160, 0.45);
+}
+
+.orientation-badge.reversed {
+  background: rgba(209, 107, 107, 0.18);
+  color: var(--reversed-glow);
+  border: 1px solid rgba(209, 107, 107, 0.45);
+}
+
+.card-detail-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(6, 4, 12, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 50;
+}
+
+.card-detail {
+  max-width: 380px;
+  width: 100%;
+  background: linear-gradient(160deg, #241735, #150e24);
+  border: 1px solid var(--accent);
+  border-radius: var(--radius);
+  padding: 26px;
+  position: relative;
+}
+
+.card-detail .close-btn {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 1.3rem;
+  cursor: pointer;
+}
+
+.card-detail h3 {
+  color: var(--accent-soft);
+  margin: 0 0 4px;
+  font-size: 1.3rem;
+}
+
+.card-detail .en-name {
+  color: var(--text-muted);
+  font-style: italic;
+  margin-bottom: 14px;
+  font-size: 0.85rem;
+}
+
+.card-detail .meaning-block {
+  margin-top: 12px;
+}
+
+.card-detail .meaning-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.card-detail .meaning-label.upright { color: var(--upright-glow); }
+.card-detail .meaning-label.reversed { color: var(--reversed-glow); }
+
+.card-detail p {
+  margin: 0;
+  color: var(--text-light);
+  line-height: 1.5;
+  font-size: 0.92rem;
+}
+
+@media (max-width: 520px) {
+  .tarot-card {
+    width: 92px;
+  }
+  .card-inner {
+    height: 132px;
+  }
+  .controls {
+    padding: 18px;
+  }
+}

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>塔羅牌模擬抽牌</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="header">
+      <h1>🔮 塔羅牌模擬抽牌</h1>
+      <p class="subtitle">選擇抽牌張數，洗牌後開始占卜，並會額外抽出一張底牌</p>
+    </header>
+
+    <section class="controls" id="controls">
+      <div class="control-group">
+        <label for="cardCount">抽牌張數</label>
+        <div class="count-row">
+          <button type="button" class="step-btn" id="decreaseBtn" aria-label="減少張數">−</button>
+          <input type="number" id="cardCount" min="1" max="20" value="3" />
+          <button type="button" class="step-btn" id="increaseBtn" aria-label="增加張數">＋</button>
+        </div>
+      </div>
+
+      <div class="control-group presets">
+        <label>常用牌陣</label>
+        <div class="preset-row">
+          <button type="button" class="preset-btn" data-count="1">單張指引</button>
+          <button type="button" class="preset-btn" data-count="3">過去現在未來</button>
+          <button type="button" class="preset-btn" data-count="5">五張牌陣</button>
+          <button type="button" class="preset-btn" data-count="10">凱爾特十字</button>
+        </div>
+      </div>
+
+      <div class="control-group toggle-group">
+        <label class="switch-label">
+          <input type="checkbox" id="allowReversed" checked />
+          <span>包含逆位牌</span>
+        </label>
+        <label class="switch-label">
+          <input type="checkbox" id="includeBase" checked />
+          <span>額外抽一張底牌</span>
+        </label>
+      </div>
+
+      <div class="control-group actions">
+        <button type="button" class="primary-btn" id="shuffleBtn">🃏 洗牌並抽牌</button>
+        <button type="button" class="secondary-btn" id="revealAllBtn" disabled>翻開全部</button>
+        <button type="button" class="secondary-btn" id="resetBtn" disabled>重新開始</button>
+      </div>
+    </section>
+
+    <section class="deck-status" id="deckStatus" hidden>
+      <div class="shuffle-anim" id="shuffleAnim">
+        <div class="shuffle-card c1"></div>
+        <div class="shuffle-card c2"></div>
+        <div class="shuffle-card c3"></div>
+      </div>
+      <p id="statusText">洗牌中…</p>
+    </section>
+
+    <section class="reading" id="reading" hidden>
+      <div class="reading-block">
+        <h2 class="block-title">牌陣</h2>
+        <div class="card-grid" id="spreadGrid"></div>
+      </div>
+
+      <div class="reading-block base-block" id="baseBlock" hidden>
+        <h2 class="block-title">底牌 <span class="hint">代表整體潛藏的核心能量</span></h2>
+        <div class="card-grid base-grid" id="baseGrid"></div>
+      </div>
+    </section>
+
+    <div class="card-detail-overlay" id="detailOverlay" hidden>
+      <div class="card-detail" id="cardDetail"></div>
+    </div>
+  </div>
+
+  <script src="cards.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
