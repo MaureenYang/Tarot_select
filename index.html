@@ -38,6 +38,19 @@
             <span class="spread-count">10</span>
             <span class="spread-name">凱爾特十字</span>
           </button>
+          <button type="button" class="spread-btn" data-key="custom">
+            <span class="spread-count">?</span>
+            <span class="spread-name">自訂張數</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="control-group custom-count-field" id="customCountField" hidden>
+        <label for="customCount">選擇張數</label>
+        <div class="count-row">
+          <button type="button" class="step-btn" id="decreaseBtn" aria-label="減少張數">−</button>
+          <input type="number" id="customCount" min="1" max="20" value="4" />
+          <button type="button" class="step-btn" id="increaseBtn" aria-label="增加張數">＋</button>
         </div>
       </div>
 

@@ -38,6 +38,10 @@
   };
 
   const spreadButtons = document.querySelectorAll(".spread-btn");
+  const customCountField = document.getElementById("customCountField");
+  const customCountInput = document.getElementById("customCount");
+  const decreaseBtn = document.getElementById("decreaseBtn");
+  const increaseBtn = document.getElementById("increaseBtn");
   const allowReversedCheckbox = document.getElementById("allowReversed");
   const includeBaseCheckbox = document.getElementById("includeBase");
 
@@ -56,13 +60,46 @@
   const detailOverlay = document.getElementById("detailOverlay");
   const cardDetail = document.getElementById("cardDetail");
 
+  const MAX_CUSTOM_CARDS = FULL_DECK.length - 1;
   let selectedSpreadKey = "three";
+
+  function clampCustomCount(value) {
+    let n = parseInt(value, 10);
+    if (isNaN(n)) n = 1;
+    return Math.min(Math.max(n, 1), MAX_CUSTOM_CARDS);
+  }
+
+  function getSpread(key) {
+    if (key === "custom") {
+      const count = clampCustomCount(customCountInput.value);
+      return {
+        label: "自訂牌陣",
+        count,
+        layout: "row",
+        positions: Array.from({ length: count }, (_, i) => `第 ${i + 1} 張`),
+      };
+    }
+    return SPREADS[key];
+  }
 
   spreadButtons.forEach((btn) => {
     btn.addEventListener("click", () => {
       selectedSpreadKey = btn.dataset.key;
       spreadButtons.forEach((b) => b.classList.toggle("active", b === btn));
+      customCountField.hidden = selectedSpreadKey !== "custom";
     });
+  });
+
+  customCountInput.addEventListener("change", () => {
+    customCountInput.value = clampCustomCount(customCountInput.value);
+  });
+
+  decreaseBtn.addEventListener("click", () => {
+    customCountInput.value = clampCustomCount(Number(customCountInput.value) - 1);
+  });
+
+  increaseBtn.addEventListener("click", () => {
+    customCountInput.value = clampCustomCount(Number(customCountInput.value) + 1);
   });
 
   function shuffleArray(array) {
@@ -237,7 +274,7 @@
   }
 
   shuffleBtn.addEventListener("click", () => {
-    const spread = SPREADS[selectedSpreadKey];
+    const spread = getSpread(selectedSpreadKey);
     const allowReversed = allowReversedCheckbox.checked;
     const includeBase = includeBaseCheckbox.checked;
 

@@ -162,6 +162,43 @@ body {
   color: var(--accent-soft);
 }
 
+.custom-count-field {
+  justify-content: flex-end;
+}
+
+.count-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+#customCount {
+  width: 64px;
+  text-align: center;
+  font-size: 1.1rem;
+  padding: 8px 4px;
+  border-radius: 8px;
+  border: 1px solid rgba(201, 169, 98, 0.4);
+  background: rgba(0, 0, 0, 0.25);
+  color: var(--text-light);
+}
+
+.step-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  border: 1px solid rgba(201, 169, 98, 0.4);
+  background: rgba(0, 0, 0, 0.25);
+  color: var(--accent-soft);
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.step-btn:hover {
+  background: rgba(201, 169, 98, 0.2);
+}
+
 .toggle-group {
   flex-direction: row;
   gap: 20px;
