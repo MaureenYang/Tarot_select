@@ -1,8 +1,43 @@
 (function () {
-  const cardCountInput = document.getElementById("cardCount");
-  const decreaseBtn = document.getElementById("decreaseBtn");
-  const increaseBtn = document.getElementById("increaseBtn");
-  const presetButtons = document.querySelectorAll(".preset-btn");
+  const SPREADS = {
+    single: {
+      label: "單張指引",
+      count: 1,
+      layout: "row",
+      positions: ["指引"],
+    },
+    three: {
+      label: "過去現在未來",
+      count: 3,
+      layout: "row",
+      positions: ["過去", "現在", "未來"],
+    },
+    choice: {
+      label: "二擇一",
+      count: 2,
+      layout: "row",
+      positions: ["選項 A", "選項 B"],
+    },
+    celtic: {
+      label: "凱爾特十字",
+      count: 10,
+      layout: "celtic",
+      positions: [
+        "1 · 現況",
+        "2 · 阻礙／助力",
+        "3 · 深層基礎",
+        "4 · 近期過去",
+        "5 · 可能結果",
+        "6 · 近期未來",
+        "7 · 自我態度",
+        "8 · 外在影響",
+        "9 · 希望與恐懼",
+        "10 · 最終結果",
+      ],
+    },
+  };
+
+  const spreadButtons = document.querySelectorAll(".spread-btn");
   const allowReversedCheckbox = document.getElementById("allowReversed");
   const includeBaseCheckbox = document.getElementById("includeBase");
 
@@ -21,29 +56,12 @@
   const detailOverlay = document.getElementById("detailOverlay");
   const cardDetail = document.getElementById("cardDetail");
 
-  const MAX_CARDS = FULL_DECK.length - 1; // leave room for base card
+  let selectedSpreadKey = "three";
 
-  function clampCount(value) {
-    let n = parseInt(value, 10);
-    if (isNaN(n)) n = 1;
-    return Math.min(Math.max(n, 1), MAX_CARDS);
-  }
-
-  cardCountInput.addEventListener("change", () => {
-    cardCountInput.value = clampCount(cardCountInput.value);
-  });
-
-  decreaseBtn.addEventListener("click", () => {
-    cardCountInput.value = clampCount(Number(cardCountInput.value) - 1);
-  });
-
-  increaseBtn.addEventListener("click", () => {
-    cardCountInput.value = clampCount(Number(cardCountInput.value) + 1);
-  });
-
-  presetButtons.forEach((btn) => {
+  spreadButtons.forEach((btn) => {
     btn.addEventListener("click", () => {
-      cardCountInput.value = clampCount(btn.dataset.count);
+      selectedSpreadKey = btn.dataset.key;
+      spreadButtons.forEach((b) => b.classList.toggle("active", b === btn));
     });
   });
 
@@ -56,16 +74,16 @@
     return arr;
   }
 
-  function drawReading(count, allowReversed, includeBase) {
+  function drawReading(spread, allowReversed, includeBase) {
     const shuffled = shuffleArray(FULL_DECK);
-    const spreadCards = shuffled.slice(0, count).map((card) => ({
+    const spreadCards = shuffled.slice(0, spread.count).map((card) => ({
       card,
       reversed: allowReversed ? Math.random() < 0.5 : false,
     }));
 
     let baseCard = null;
     if (includeBase) {
-      const base = shuffled[count];
+      const base = shuffled[spread.count];
       baseCard = {
         card: base,
         reversed: allowReversed ? Math.random() < 0.5 : false,
@@ -75,14 +93,17 @@
     return { spreadCards, baseCard };
   }
 
-  function buildCardElement(entry, positionLabel) {
+  function buildCardElement(entry, positionLabel, extraClass) {
     const wrapper = document.createElement("div");
-    wrapper.className = "tarot-card" + (entry.reversed ? " reversed" : "");
+    wrapper.className = "tarot-card" + (entry.reversed ? " reversed" : "") + (extraClass ? " " + extraClass : "");
 
     const posEl = document.createElement("div");
     posEl.className = "card-position";
     posEl.textContent = positionLabel;
     wrapper.appendChild(posEl);
+
+    const scene = document.createElement("div");
+    scene.className = "card-scene";
 
     const inner = document.createElement("div");
     inner.className = "card-inner";
@@ -102,7 +123,8 @@
 
     inner.appendChild(back);
     inner.appendChild(front);
-    wrapper.appendChild(inner);
+    scene.appendChild(inner);
+    wrapper.appendChild(scene);
 
     wrapper.addEventListener("click", () => {
       if (!wrapper.classList.contains("revealed")) {
@@ -138,15 +160,49 @@
     if (e.target === detailOverlay) detailOverlay.hidden = true;
   });
 
-  let currentReading = null;
+  function renderRowLayout(spreadCards, positions) {
+    spreadGrid.className = "card-grid";
+    spreadCards.forEach((entry, i) => {
+      spreadGrid.appendChild(buildCardElement(entry, positions[i]));
+    });
+  }
 
-  function renderReading(readingData) {
+  function renderCelticLayout(spreadCards, positions) {
+    spreadGrid.className = "celtic-layout";
+
+    const cross = document.createElement("div");
+    cross.className = "celtic-cross";
+
+    const crossCenter = document.createElement("div");
+    crossCenter.className = "cross-center";
+    crossCenter.appendChild(buildCardElement(spreadCards[0], positions[0], "pos-present"));
+    crossCenter.appendChild(buildCardElement(spreadCards[1], positions[1], "pos-challenge"));
+
+    cross.appendChild(buildCardElement(spreadCards[2], positions[2], "pos-found"));
+    cross.appendChild(buildCardElement(spreadCards[3], positions[3], "pos-past"));
+    cross.appendChild(buildCardElement(spreadCards[4], positions[4], "pos-crown"));
+    cross.appendChild(buildCardElement(spreadCards[5], positions[5], "pos-future"));
+    cross.appendChild(crossCenter);
+
+    const staff = document.createElement("div");
+    staff.className = "celtic-staff";
+    [9, 8, 7, 6].forEach((idx) => {
+      staff.appendChild(buildCardElement(spreadCards[idx], positions[idx]));
+    });
+
+    spreadGrid.appendChild(cross);
+    spreadGrid.appendChild(staff);
+  }
+
+  function renderReading(spread, readingData) {
     spreadGrid.innerHTML = "";
     baseGrid.innerHTML = "";
 
-    readingData.spreadCards.forEach((entry, i) => {
-      spreadGrid.appendChild(buildCardElement(entry, `第 ${i + 1} 張`));
-    });
+    if (spread.layout === "celtic") {
+      renderCelticLayout(readingData.spreadCards, spread.positions);
+    } else {
+      renderRowLayout(readingData.spreadCards, spread.positions);
+    }
 
     if (readingData.baseCard) {
       baseBlock.hidden = false;
@@ -161,7 +217,7 @@
   }
 
   shuffleBtn.addEventListener("click", () => {
-    const count = clampCount(cardCountInput.value);
+    const spread = SPREADS[selectedSpreadKey];
     const allowReversed = allowReversedCheckbox.checked;
     const includeBase = includeBaseCheckbox.checked;
 
@@ -172,12 +228,12 @@
 
     setTimeout(() => {
       statusText.textContent = "正在抽牌…";
-      currentReading = drawReading(count, allowReversed, includeBase);
+      const readingData = drawReading(spread, allowReversed, includeBase);
 
       setTimeout(() => {
         deckStatus.hidden = true;
         shuffleBtn.disabled = false;
-        renderReading(currentReading);
+        renderReading(spread, readingData);
       }, 500);
     }, 900);
   });
@@ -194,6 +250,5 @@
     baseGrid.innerHTML = "";
     revealAllBtn.disabled = true;
     resetBtn.disabled = true;
-    currentReading = null;
   });
 })();

@@ -96,64 +96,58 @@ body {
   color: var(--text-muted);
 }
 
-.count-row {
+.spread-field {
+  flex: 1;
+  min-width: 320px;
+}
+
+.spread-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.spread-btn {
   display: flex;
   align-items: center;
   gap: 8px;
-}
-
-#cardCount {
-  width: 64px;
-  text-align: center;
-  font-size: 1.1rem;
-  padding: 8px 4px;
-  border-radius: 8px;
-  border: 1px solid rgba(201, 169, 98, 0.4);
-  background: rgba(0, 0, 0, 0.25);
-  color: var(--text-light);
-}
-
-.step-btn {
-  width: 34px;
-  height: 34px;
-  border-radius: 8px;
-  border: 1px solid rgba(201, 169, 98, 0.4);
-  background: rgba(0, 0, 0, 0.25);
-  color: var(--accent-soft);
-  font-size: 1.2rem;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-
-.step-btn:hover {
-  background: rgba(201, 169, 98, 0.2);
-}
-
-.presets {
-  flex: 1;
-  min-width: 260px;
-}
-
-.preset-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.preset-btn {
-  padding: 7px 14px;
-  border-radius: 999px;
-  border: 1px solid rgba(155, 111, 214, 0.5);
-  background: rgba(107, 63, 160, 0.2);
+  padding: 10px 16px;
+  border-radius: 12px;
+  border: 1px solid rgba(155, 111, 214, 0.4);
+  background: rgba(107, 63, 160, 0.16);
   color: var(--text-light);
   font-size: 0.85rem;
   cursor: pointer;
-  transition: background 0.2s, transform 0.15s;
+  transition: background 0.2s, transform 0.15s, border-color 0.2s;
 }
 
-.preset-btn:hover {
-  background: rgba(155, 111, 214, 0.35);
+.spread-btn .spread-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 5px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.25);
+  color: var(--accent-soft);
+  font-weight: 700;
+  font-size: 0.78rem;
+}
+
+.spread-btn:hover {
+  background: rgba(155, 111, 214, 0.3);
   transform: translateY(-1px);
+}
+
+.spread-btn.active {
+  border-color: var(--accent);
+  background: rgba(201, 169, 98, 0.18);
+}
+
+.spread-btn.active .spread-count {
+  background: rgba(201, 169, 98, 0.35);
+  color: var(--accent-soft);
 }
 
 .toggle-group {
@@ -293,6 +287,100 @@ body {
 
 .base-grid {
   justify-content: center;
+}
+
+/* Celtic Cross spread layout */
+.celtic-layout {
+  display: flex;
+  gap: 44px;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.celtic-cross {
+  display: grid;
+  grid-template-columns: 130px 130px 130px;
+  grid-template-rows: repeat(3, 200px);
+  grid-template-areas:
+    ".    crown  ."
+    "past center future"
+    ".    found  .";
+  gap: 14px;
+  place-items: center;
+}
+
+.celtic-cross .pos-crown { grid-area: crown; }
+.celtic-cross .pos-past { grid-area: past; }
+.celtic-cross .pos-future { grid-area: future; }
+.celtic-cross .pos-found { grid-area: found; }
+
+.cross-center {
+  grid-area: center;
+  position: relative;
+  width: 120px;
+}
+
+.cross-center .pos-challenge {
+  position: absolute;
+  top: 26px;
+  left: 0;
+  width: 120px;
+  z-index: 2;
+}
+
+.cross-center .pos-challenge .card-scene {
+  transform: rotate(90deg);
+}
+
+.cross-center .pos-challenge .card-position {
+  position: absolute;
+  left: -92px;
+  top: 78px;
+  width: 84px;
+  text-align: right;
+  margin: 0;
+}
+
+.celtic-staff {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+@media (max-width: 720px) {
+  .celtic-layout {
+    flex-direction: column;
+    gap: 24px;
+  }
+  .celtic-cross {
+    grid-template-columns: 1fr;
+    grid-template-rows: none;
+    grid-template-areas:
+      "crown"
+      "past"
+      "center"
+      "future"
+      "found";
+    justify-items: center;
+    gap: 20px;
+  }
+  .cross-center {
+    width: auto;
+  }
+  .cross-center .pos-challenge {
+    position: static;
+    margin-top: 10px;
+  }
+  .cross-center .pos-challenge .card-scene {
+    transform: none;
+  }
+  .cross-center .pos-challenge .card-position {
+    position: static;
+    width: auto;
+    text-align: center;
+    margin: 0 0 8px;
+  }
 }
 
 .tarot-card {
@@ -464,5 +552,8 @@ body {
   }
   .controls {
     padding: 18px;
+  }
+  .spread-field {
+    min-width: 0;
   }
 }
