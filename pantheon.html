@@ -3,33 +3,34 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>天使落地指引卡</title>
-<link rel="stylesheet" href="angel-style.css" />
+<title>萬神歸途指引卡</title>
+<link rel="stylesheet" href="pantheon-style.css" />
 </head>
 <body>
   <div class="app">
     <nav class="site-nav">
       <a class="nav-link" href="index.html">🔮 塔羅牌抽牌</a>
-      <a class="nav-link" href="pantheon.html">⚡ 萬神歸途指引卡</a>
+      <a class="nav-link" href="angel.html">🕊️ 天使指引卡</a>
     </nav>
 
     <header class="header">
-      <h1>🕊️ 天使落地指引卡</h1>
-      <p class="subtitle">44 張「天使落地指引卡」，抽一張獲得當下的具體指引，或抽三張看見更完整的脈絡（沒有正逆位）</p>
+      <h1>⚡ 萬神歸途指引卡</h1>
+      <p class="tagline">萬神在此為你標記座標，帶你走出迷霧、回歸本心。</p>
+      <p class="subtitle">44 位跨文化神祇的低語，抽一張聽當下的神諭，或抽三張看見更完整的脈絡（沒有正逆位）</p>
     </header>
 
     <section class="controls" id="controls">
       <div class="draw-choice">
         <button type="button" class="draw-btn active" data-count="1">
-          <span class="count">1</span>單張指引
+          <span class="count">1</span>單張神諭
         </button>
         <button type="button" class="draw-btn" data-count="3">
-          <span class="count">3</span>三張指引
+          <span class="count">3</span>三張神諭
         </button>
       </div>
 
       <div class="actions">
-        <button type="button" class="btn-primary" id="shuffleBtn">🕊️ 洗牌並抽牌</button>
+        <button type="button" class="btn-primary" id="shuffleBtn">⚡ 洗牌並抽牌</button>
         <button type="button" class="btn-secondary" id="revealAllBtn" disabled>翻開全部</button>
         <button type="button" class="btn-secondary" id="resetBtn" disabled>重新開始</button>
       </div>
@@ -48,14 +49,14 @@
       <div class="card-grid" id="spreadGrid"></div>
     </section>
 
-    <footer class="note">點一次翻牌，再點一次查看完整落地指引</footer>
+    <footer class="note">點一次翻牌，再點一次聆聽完整神諭</footer>
   </div>
 
   <div class="overlay" id="detailOverlay" hidden>
     <div class="detail-card" id="cardDetail"></div>
   </div>
 
-  <script src="angel-cards.js"></script>
-  <script src="angel-app.js"></script>
+  <script src="pantheon-cards.js"></script>
+  <script src="pantheon-app.js"></script>
 </body>
 </html>

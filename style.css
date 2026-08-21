@@ -36,9 +36,15 @@ body {
   margin: 0 auto;
 }
 
+.site-nav {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
 .nav-link {
   display: inline-block;
-  margin-bottom: 20px;
   font-size: 0.82rem;
   color: var(--text-muted);
   text-decoration: none;
