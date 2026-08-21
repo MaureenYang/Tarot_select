@@ -3,37 +3,38 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>天使落地指引卡</title>
-<link rel="stylesheet" href="angel-style.css" />
+<title>日日微光</title>
+<link rel="stylesheet" href="dailylight-style.css" />
 </head>
 <body>
   <div class="app">
     <nav class="site-nav">
       <a class="nav-link" href="index.html">🔮 塔羅牌抽牌</a>
+      <a class="nav-link" href="angel.html">🕊️ 天使指引卡</a>
       <a class="nav-link" href="pantheon.html">⚡ 萬神歸途指引卡</a>
       <a class="nav-link" href="innerstudio.html">🎬 內在片場神諭卡</a>
       <a class="nav-link" href="innerchild.html">🧸 未完的童年碎片</a>
-      <a class="nav-link" href="dailylight.html">🌤️ 日日微光</a>
     </nav>
 
     <header class="header">
-      <h1>🕊️ 天使落地指引卡</h1>
-      <p class="subtitle">44 張「天使落地指引卡」，抽一張獲得當下的具體指引，或抽三張看見更完整的脈絡（沒有正逆位）</p>
+      <h1>🌤️ 日日微光</h1>
+      <p class="tagline">給心靈的 44 個溫暖指引卡・Daily Radiance</p>
+      <p class="subtitle">從晨光啟程到暮光晚安，抽一張看見此刻最需要的溫暖指引，或抽三張陪你走過一整天（沒有正逆位）</p>
       <p class="visit-counter" id="visitCounter" hidden>已被瀏覽 <span id="visitCount">–</span> 次</p>
     </header>
 
     <section class="controls" id="controls">
       <div class="draw-choice">
         <button type="button" class="draw-btn active" data-count="1">
-          <span class="count">1</span>單張指引
+          <span class="count">1</span>今日一句
         </button>
         <button type="button" class="draw-btn" data-count="3">
-          <span class="count">3</span>三張指引
+          <span class="count">3</span>三段時光
         </button>
       </div>
 
       <div class="actions">
-        <button type="button" class="btn-primary" id="shuffleBtn">🕊️ 洗牌並抽牌</button>
+        <button type="button" class="btn-primary" id="shuffleBtn">🌤️ 抽取微光</button>
         <button type="button" class="btn-secondary" id="revealAllBtn" disabled>翻開全部</button>
         <button type="button" class="btn-secondary" id="resetBtn" disabled>重新開始</button>
       </div>
@@ -52,14 +53,14 @@
       <div class="card-grid" id="spreadGrid"></div>
     </section>
 
-    <footer class="note">點一次翻牌，再點一次查看完整落地指引</footer>
+    <footer class="note">點一次翻牌，再點一次看見溫暖指引與每日小行動</footer>
   </div>
 
   <div class="overlay" id="detailOverlay" hidden>
     <div class="detail-card" id="cardDetail"></div>
   </div>
 
-  <script src="angel-cards.js"></script>
-  <script src="angel-app.js"></script>
+  <script src="dailylight-cards.js"></script>
+  <script src="dailylight-app.js"></script>
 </body>
 </html>
