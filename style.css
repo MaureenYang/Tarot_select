@@ -108,16 +108,18 @@ body {
 }
 
 .spread-row {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
   gap: 10px;
 }
 
 .spread-btn {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 8px;
-  padding: 10px 16px;
+  justify-content: center;
+  gap: 6px;
+  padding: 12px 10px;
   border-radius: 12px;
   border: 1px solid rgba(155, 111, 214, 0.4);
   background: rgba(107, 63, 160, 0.16);
@@ -125,6 +127,10 @@ body {
   font-size: 0.85rem;
   cursor: pointer;
   transition: background 0.2s, transform 0.15s, border-color 0.2s;
+}
+
+.spread-btn .spread-name {
+  white-space: nowrap;
 }
 
 .spread-btn .spread-count {
@@ -561,5 +567,6 @@ body {
   }
   .spread-field {
     min-width: 0;
+    flex-basis: 100%;
   }
 }
