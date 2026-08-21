@@ -397,11 +397,7 @@ body {
 .pos-challenge {
   position: relative;
   z-index: 2;
-  transform: translateY(13px);
-}
-
-.pos-challenge .card-scene {
-  transform: rotate(90deg);
+  transform: translate(34px, 60px) rotate(90deg) scale(0.62);
 }
 
 .pos-challenge .card-position {
@@ -424,9 +420,6 @@ body {
     position: static;
     transform: none;
     z-index: auto;
-  }
-  .pos-challenge .card-scene {
-    transform: none;
   }
   .pos-challenge .card-position {
     display: block;
