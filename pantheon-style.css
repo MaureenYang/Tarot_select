@@ -177,6 +177,45 @@ body {
 
 .reading { margin-top: 20px; }
 
+.text-block { margin-top: 28px; }
+
+.text-title {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--bronze-soft);
+  margin: 0 0 14px;
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.text-hint {
+  font-size: 0.76rem;
+  font-weight: 400;
+  color: var(--muted-dim);
+}
+
+.result-textarea {
+  width: 100%;
+  max-width: 520px;
+  display: block;
+  resize: vertical;
+  font-family: inherit;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: var(--text);
+  background: rgba(0, 0, 0, 0.22);
+  border: 1px solid var(--hairline);
+  border-radius: 10px;
+  padding: 14px;
+  margin-bottom: 12px;
+}
+
+.result-textarea:focus {
+  outline: none;
+  border-color: var(--bronze);
+}
+
 .card-grid {
   display: flex;
   flex-wrap: wrap;

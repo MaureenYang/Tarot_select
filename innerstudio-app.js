@@ -13,6 +13,10 @@
   const detailOverlay = document.getElementById("detailOverlay");
   const cardDetail = document.getElementById("cardDetail");
 
+  const textBlock = document.getElementById("textBlock");
+  const resultText = document.getElementById("resultText");
+  const copyTextBtn = document.getElementById("copyTextBtn");
+
   let selectedCount = 1;
 
   drawButtons.forEach((btn) => {
@@ -99,12 +103,30 @@
     if (e.target === detailOverlay) detailOverlay.hidden = true;
   });
 
+  function buildResultText(cards) {
+    const lines = ["內在片場神諭卡", ""];
+
+    cards.forEach((card, i) => {
+      const label = cards.length === 1 ? "定格" : `第 ${i + 1} 幕`;
+      lines.push(`${label}：${card.name}｜${card.en}`);
+      lines.push(`根本原因：${card.cause}`);
+      lines.push(`破局台詞：「${card.line}」`);
+      lines.push("");
+    });
+
+    return lines.join("\n").trim();
+  }
+
   function renderReading(cards) {
     spreadGrid.innerHTML = "";
     cards.forEach((card, i) => {
       const label = cards.length === 1 ? "定格" : `第 ${i + 1} 幕`;
       spreadGrid.appendChild(buildCardElement(card, label));
     });
+
+    resultText.value = buildResultText(cards);
+    textBlock.hidden = false;
+    copyTextBtn.textContent = "📋 複製文字";
 
     reading.hidden = false;
     revealAllBtn.disabled = false;
@@ -136,8 +158,33 @@
   resetBtn.addEventListener("click", () => {
     reading.hidden = true;
     spreadGrid.innerHTML = "";
+    resultText.value = "";
+    textBlock.hidden = true;
     revealAllBtn.disabled = true;
     resetBtn.disabled = true;
+  });
+
+  copyTextBtn.addEventListener("click", () => {
+    const text = resultText.value;
+
+    const showCopied = () => {
+      copyTextBtn.textContent = "✅ 已複製";
+      setTimeout(() => {
+        copyTextBtn.textContent = "📋 複製文字";
+      }, 1500);
+    };
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(showCopied).catch(() => {
+        resultText.select();
+        document.execCommand("copy");
+        showCopied();
+      });
+    } else {
+      resultText.select();
+      document.execCommand("copy");
+      showCopied();
+    }
   });
 })();
 
