@@ -60,6 +60,10 @@
   const detailOverlay = document.getElementById("detailOverlay");
   const cardDetail = document.getElementById("cardDetail");
 
+  const textBlock = document.getElementById("textBlock");
+  const resultText = document.getElementById("resultText");
+  const copyTextBtn = document.getElementById("copyTextBtn");
+
   const MAX_CUSTOM_CARDS = FULL_DECK.length - 1;
   let selectedSpreadKey = "three";
 
@@ -249,6 +253,23 @@
     spreadGrid.appendChild(cross);
   }
 
+  function buildResultText(spread, readingData) {
+    const lines = [`${spread.label} 牌陣`, ""];
+
+    readingData.spreadCards.forEach((entry, i) => {
+      const orientation = entry.reversed ? "逆位" : "正位";
+      lines.push(`${spread.positions[i]}：${entry.card.name}（${orientation}）`);
+    });
+
+    if (readingData.baseCard) {
+      const orientation = readingData.baseCard.reversed ? "逆位" : "正位";
+      lines.push("");
+      lines.push(`底牌：${readingData.baseCard.card.name}（${orientation}）`);
+    }
+
+    return lines.join("\n");
+  }
+
   function renderReading(spread, readingData) {
     spreadGrid.innerHTML = "";
     baseGrid.innerHTML = "";
@@ -267,6 +288,10 @@
     } else {
       baseBlock.hidden = true;
     }
+
+    resultText.value = buildResultText(spread, readingData);
+    textBlock.hidden = false;
+    copyTextBtn.textContent = "📋 複製文字";
 
     reading.hidden = false;
     revealAllBtn.disabled = false;
@@ -305,8 +330,33 @@
     reading.hidden = true;
     spreadGrid.innerHTML = "";
     baseGrid.innerHTML = "";
+    resultText.value = "";
+    textBlock.hidden = true;
     revealAllBtn.disabled = true;
     resetBtn.disabled = true;
+  });
+
+  copyTextBtn.addEventListener("click", () => {
+    const text = resultText.value;
+
+    const showCopied = () => {
+      copyTextBtn.textContent = "✅ 已複製";
+      setTimeout(() => {
+        copyTextBtn.textContent = "📋 複製文字";
+      }, 1500);
+    };
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(showCopied).catch(() => {
+        resultText.select();
+        document.execCommand("copy");
+        showCopied();
+      });
+    } else {
+      resultText.select();
+      document.execCommand("copy");
+      showCopied();
+    }
   });
 })();
 
