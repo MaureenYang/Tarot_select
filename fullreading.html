@@ -3,30 +3,30 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>塔羅牌抽牌</title>
-<link rel="stylesheet" href="style.css" />
+<title>完整解讀</title>
+<link rel="stylesheet" href="fullreading-style.css" />
 </head>
 <body>
   <div class="app">
     <nav class="site-nav">
+      <a class="nav-link" href="index.html">🔮 塔羅牌抽牌</a>
       <a class="nav-link" href="innerchild.html">🧸 童年碎片拾光卡</a>
       <a class="nav-link" href="innerstudio.html">🎬 內在片場神諭卡</a>
       <a class="nav-link" href="pantheon.html">⚡ 萬神歸途指引卡</a>
       <a class="nav-link" href="angel.html">🕊️ 天使落地指引卡</a>
       <a class="nav-link" href="dailylight.html">🌤️ 日日微光指引卡</a>
       <a class="nav-link" href="about.html">✦ 關於牌卡</a>
-      <a class="nav-link" href="fullreading.html">🌌 完整解讀</a>
     </nav>
 
     <header class="header">
-      <h1>🔮 塔羅牌抽牌</h1>
-      <p class="subtitle">選擇牌陣，洗牌後依牌陣排列成對應陣型，並會額外抽出一張底牌</p>
-      <p class="visit-counter" id="visitCounter" hidden>已被瀏覽 <span id="visitCount">–</span> 次</p>
+      <h1>🌌 完整解讀</h1>
+      <p class="subtitle">一次抽完塔羅牌、童年碎片拾光卡、內在片場神諭卡、萬神歸途指引卡、天使落地指引卡</p>
+      <p class="subtitle small">抽完後會產生一份完整的分析指令文字，複製貼給 AI 就能開始解讀</p>
     </header>
 
     <section class="controls" id="controls">
       <div class="control-group spread-field">
-        <label>選擇牌陣</label>
+        <label>塔羅牌陣</label>
         <div class="spread-row" id="spreadRow">
           <button type="button" class="spread-btn" data-key="single">
             <span class="spread-count">1</span>
@@ -63,23 +63,31 @@
       <div class="control-group toggle-group">
         <label class="switch-label">
           <input type="checkbox" id="allowReversed" checked />
-          <span>包含逆位牌</span>
-        </label>
-        <label class="switch-label">
-          <input type="checkbox" id="includeBase" checked />
-          <span>額外抽一張底牌</span>
+          <span>塔羅牌包含逆位</span>
         </label>
       </div>
 
+      <div class="control-group oracle-count-field">
+        <label>四組神諭卡各抽幾張</label>
+        <div class="draw-choice" id="oracleChoice">
+          <button type="button" class="draw-btn active" data-count="1">1 張</button>
+          <button type="button" class="draw-btn" data-count="3">3 張</button>
+        </div>
+      </div>
+
+      <div class="control-group question-field">
+        <label for="questionInput">你的問題（選填，會放進最後的文字裡）</label>
+        <textarea class="question-input" id="questionInput" placeholder="例如：我該不該接受這份新工作？"></textarea>
+      </div>
+
       <div class="control-group actions">
-        <button type="button" class="primary-btn" id="shuffleBtn">🃏 洗牌並抽牌</button>
-        <button type="button" class="secondary-btn" id="revealAllBtn" disabled>翻開全部</button>
+        <button type="button" class="primary-btn" id="drawBtn">🔮 一次抽完五套牌</button>
         <button type="button" class="secondary-btn" id="resetBtn" disabled>重新開始</button>
       </div>
     </section>
 
     <section class="deck-status" id="deckStatus" hidden>
-      <div class="shuffle-anim" id="shuffleAnim">
+      <div class="shuffle-anim">
         <div class="shuffle-card c1"></div>
         <div class="shuffle-card c2"></div>
         <div class="shuffle-card c3"></div>
@@ -88,29 +96,49 @@
     </section>
 
     <section class="reading" id="reading" hidden>
-      <div class="reading-block">
-        <h2 class="block-title">牌陣</h2>
-        <div class="card-grid" id="spreadGrid"></div>
+      <div class="group-block">
+        <h2 class="group-title">🔮 塔羅牌</h2>
+        <p class="group-sub" id="tarotSub"></p>
+        <div class="card-list" id="tarotList"></div>
       </div>
 
-      <div class="reading-block base-block" id="baseBlock" hidden>
-        <h2 class="block-title">底牌 <span class="hint">代表整體潛藏的核心能量</span></h2>
-        <div class="card-grid base-grid" id="baseGrid"></div>
+      <div class="group-block">
+        <h2 class="group-title">🧸 童年碎片拾光卡</h2>
+        <p class="group-sub">根源：它從哪裡來</p>
+        <div class="card-list" id="childList"></div>
       </div>
 
-      <div class="reading-block text-block" id="textBlock" hidden>
-        <h2 class="block-title">文字版 <span class="hint">方便複製貼到 LINE、筆記</span></h2>
-        <textarea class="result-textarea" id="resultText" readonly rows="6"></textarea>
+      <div class="group-block">
+        <h2 class="group-title">🎬 內在片場神諭卡</h2>
+        <p class="group-sub">現況：現在怎麼運作</p>
+        <div class="card-list" id="studioList"></div>
+      </div>
+
+      <div class="group-block">
+        <h2 class="group-title">⚡ 萬神歸途指引卡</h2>
+        <p class="group-sub">轉化：可以怎麼改變</p>
+        <div class="card-list" id="pantheonList"></div>
+      </div>
+
+      <div class="group-block">
+        <h2 class="group-title">🕊️ 天使落地指引卡</h2>
+        <p class="group-sub">實踐：接下來怎麼走</p>
+        <div class="card-list" id="angelList"></div>
+      </div>
+
+      <div class="group-block text-block" id="textBlock">
+        <h2 class="text-title">完整解讀文字 <span class="text-hint">複製後貼給 AI，請它依此完整分析</span></h2>
+        <textarea class="result-textarea" id="resultText" readonly rows="14"></textarea>
         <button type="button" class="secondary-btn" id="copyTextBtn">📋 複製文字</button>
       </div>
     </section>
-
-    <div class="card-detail-overlay" id="detailOverlay" hidden>
-      <div class="card-detail" id="cardDetail"></div>
-    </div>
   </div>
 
   <script src="cards.js"></script>
-  <script src="app.js"></script>
+  <script src="innerchild-cards.js"></script>
+  <script src="innerstudio-cards.js"></script>
+  <script src="pantheon-cards.js"></script>
+  <script src="angel-cards.js"></script>
+  <script src="fullreading-app.js"></script>
 </body>
 </html>
