@@ -70,6 +70,67 @@ body {
 
 .visit-counter { color: var(--muted); font-size: 0.78rem; }
 
+.about-block {
+  background: linear-gradient(180deg, var(--panel), var(--panel-2));
+  border: 1px solid var(--hairline);
+  border-radius: 14px;
+  padding: 16px 22px;
+  margin-bottom: 20px;
+}
+
+.about-block summary {
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--spotlight-soft);
+  list-style: none;
+}
+
+.about-block summary::-webkit-details-marker {
+  display: none;
+}
+
+.about-block summary::before {
+  content: "▸";
+  display: inline-block;
+  margin-right: 8px;
+  transition: transform 0.2s;
+}
+
+.about-block[open] summary::before {
+  transform: rotate(90deg);
+}
+
+.about-content {
+  margin-top: 16px;
+  color: var(--text);
+  font-size: 0.9rem;
+  line-height: 1.75;
+}
+
+.about-content h3 {
+  font-size: 0.95rem;
+  color: var(--spotlight-soft);
+  margin: 20px 0 6px;
+}
+
+.about-content h3:first-child {
+  margin-top: 4px;
+}
+
+.about-content p {
+  margin: 0 0 10px;
+}
+
+.about-flow {
+  font-weight: 600;
+  color: var(--cut-teal-soft);
+  background: rgba(111, 179, 173, 0.14);
+  padding: 8px 12px;
+  border-radius: 8px;
+  text-align: center;
+}
+
 .controls {
   background: linear-gradient(180deg, var(--panel), var(--panel-2));
   border: 1px solid var(--hairline);
